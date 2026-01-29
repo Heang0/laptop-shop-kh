@@ -1,0 +1,92 @@
+
+:host{
+  --tabbar-margin: 16px;
+  --bar-height: 74px;
+  --fab-size: 66px;
+  --blue: #2f7bff;
+  --muted: rgba(15, 23, 42, 0.45);
+}
+
+/* Floating modern tab bar with notch */
+.floating-tabbar{
+  position: fixed;
+  left: var(--tabbar-margin);
+  right: var(--tabbar-margin);
+  bottom: calc(var(--tabbar-margin) + env(safe-area-inset-bottom));
+  height: var(--bar-height);
+
+  --background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-radius: 26px;
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
+  border: 1px solid rgba(255,255,255,0.7);
+
+  overflow: visible;
+
+  /* NOTCH cutout under center FAB */
+  -webkit-mask-image: radial-gradient(circle 40px at 50% 0px, transparent 39px, #000 40px);
+  mask-image: radial-gradient(circle 40px at 50% 0px, transparent 39px, #000 40px);
+}
+
+/* Keep spacing for the center button but hide the placeholder */
+.middle-placeholder{
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Tab button alignment + spacing */
+ion-tab-button{
+  --color: var(--muted);
+  --color-selected: var(--blue);
+  --padding-top: 10px;
+  --padding-bottom: 12px;
+}
+
+ion-tab-button::part(native){
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--bar-height);
+}
+
+ion-tab-button ion-icon{
+  font-size: 22px;
+}
+
+/* Active indicator dot (clean + aligned) */
+ion-tab-button.tab-selected::part(native){
+  position: relative;
+}
+ion-tab-button.tab-selected::part(native)::after{
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--blue);
+}
+
+/* Center FAB */
+.center-fab{
+  bottom: calc(var(--tabbar-margin) + env(safe-area-inset-bottom) + 10px);
+  z-index: 50;
+}
+
+.center-fab ion-fab-button{
+  width: var(--fab-size);
+  height: var(--fab-size);
+  --border-radius: 999px;
+
+  --background: linear-gradient(135deg, #2f7bff, #1e5cff);
+  --box-shadow: 0 16px 32px rgba(47, 123, 255, 0.34);
+}
+
+.center-fab ion-icon{
+  font-size: 26px;
+  color: #fff;
+}

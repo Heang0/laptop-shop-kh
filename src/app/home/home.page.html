@@ -1,0 +1,147 @@
+<ion-content [fullscreen]="true" class="gp">
+  <!-- Top header -->
+  <div class="topbar">
+    <div class="avatar" aria-hidden="true"></div>
+
+    <div class="title-wrap">
+      <div class="title">{{ title }}</div>
+    </div>
+
+    <button class="icon-btn" aria-label="Search">
+      <ion-icon name="search-outline"></ion-icon>
+    </button>
+  </div>
+
+  <!-- HERO slider (3 slides) -->
+  <div class="hero">
+    <div class="hero-track" (scroll)="onHeroScroll($event)">
+      <div class="hero-slide" *ngFor="let s of heroSlides" [style.backgroundImage]="'url(' + s.img + ')'">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+          <div class="hero-sub">{{ s.subtitle }}</div>
+          <div class="hero-title">{{ s.title }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots" aria-hidden="true">
+      <span class="dot" *ngFor="let s of heroSlides; let i = index" [class.active]="i === heroIndex"></span>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="cats">
+    <button class="cat" *ngFor="let c of categories"
+      [class.active]="c.key === activeCategory"
+      (click)="selectCategory(c.key)"
+      type="button">
+      <ion-icon [name]="c.icon"></ion-icon>
+      <span>{{ c.label }}</span>
+    </button>
+  </div>
+
+  <!-- Popular product -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Popular Product</div>
+      <div class="pager" aria-hidden="true">
+        <span class="p p-active"></span><span class="p"></span><span class="p"></span>
+      </div>
+    </div>
+
+    <div class="hscroll">
+      <div class="p-card" *ngFor="let p of popularProducts">
+        <button class="wish" (click)="toggleWish(p)" aria-label="Add to favorites">
+          <ion-icon name="heart"></ion-icon>
+        </button>
+
+        <div class="p-img">
+          <img [src]="p.img" [alt]="p.name" loading="lazy" />
+        </div>
+
+        <div class="p-name">{{ p.name }}</div>
+        <div class="p-brand">{{ p.brand }}</div>
+
+        <div class="p-bottom">
+          <div class="p-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
+          <button class="add" aria-label="Add to cart">
+            <ion-icon name="bag-outline"></ion-icon>
+          </button>
+        </div>
+
+        <div class="badge" *ngIf="p.badge">{{ p.badge }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Best selling -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Best Selling</div>
+      <div class="pager" aria-hidden="true">
+        <span class="p p-active"></span><span class="p"></span>
+      </div>
+    </div>
+
+    <div class="best">
+      <div class="best-card" *ngFor="let p of bestSelling">
+        <img class="best-img" [src]="p.img" [alt]="p.name" loading="lazy" />
+
+        <div class="best-mid">
+          <div class="best-name">{{ p.name }}</div>
+          <div class="best-brand">{{ p.brand }}</div>
+
+          <div class="best-meta">
+            <div class="chip rating">
+              <span class="dot-mini"></span>
+              {{ p.rating | number:'1.1-1' }}
+            </div>
+
+            <div class="chip off" *ngIf="p.badge">{{ p.badge }}</div>
+          </div>
+        </div>
+
+        <div class="best-right">
+          <div class="best-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
+          <div class="chip small">Hot</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- All products grid (shows "many products") -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">All Products</div>
+      <div class="hint">{{ activeCategory }}</div>
+    </div>
+
+    <div class="grid">
+      <div class="g-card" *ngFor="let p of allProducts">
+        <div class="g-top">
+          <button class="wish sm" (click)="toggleWish(p)" aria-label="Favorite">
+            <ion-icon name="heart"></ion-icon>
+          </button>
+          <div class="badge sm" *ngIf="p.badge">{{ p.badge }}</div>
+        </div>
+
+        <div class="g-img">
+          <img [src]="p.img" [alt]="p.name" loading="lazy" />
+        </div>
+
+        <div class="g-name">{{ p.name }}</div>
+        <div class="g-brand">{{ p.brand }}</div>
+
+        <div class="g-bottom">
+          <div class="g-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
+          <div class="chip rating small">
+            <span class="dot-mini"></span>
+            {{ p.rating | number:'1.1-1' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-safe"></div>
+</ion-content>
