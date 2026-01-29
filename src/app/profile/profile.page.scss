@@ -1,18 +1,115 @@
-:host { --ion-background-color: #f5f6ff; }
-.stub{
-  --padding-top: 18px;
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+
+  --bg: #f4f7ff;
+  --card: rgba(255, 255, 255, 0.88);
+  --text: #0f172a;
+  --muted: rgba(15, 23, 42, 0.55);
 }
-.card{
-  margin: 24px 16px;
-  background: rgba(255,255,255,0.86);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 22px;
-  padding: 22px;
-  box-shadow: 0 18px 45px rgba(15,24,60,0.12);
-  border: 1px solid rgba(255,255,255,0.7);
-  text-align:center;
+
+ion-content.profile {
+  --background: var(--bg);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  height: 100%;
+  width: 100%;
 }
-ion-icon{ font-size:34px; margin-bottom:10px; color: var(--ion-color-primary); }
-h2{ margin:0 0 6px; font-weight:800; letter-spacing:-0.02em;}
-p{ margin:0; color: rgba(12,18,38,0.6); }
+
+.profile .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 14px 18px 10px;
+  background: rgba(244, 247, 255, 0.92);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.profile .title {
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  font-size: 22px;
+  color: var(--text);
+  margin: 0;
+}
+
+.profile .content {
+  padding: 18px;
+}
+
+.profile .profile-header {
+  text-align: center;
+  padding: 24px 0 32px;
+}
+
+.profile .profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 999px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+  margin-bottom: 16px;
+}
+
+.profile .profile-name {
+  font-weight: 900;
+  font-size: 24px;
+  color: var(--text);
+  margin: 0 0 6px;
+  letter-spacing: -0.4px;
+}
+
+.profile .profile-email {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.profile .menu-section {
+  display: grid;
+  gap: 8px;
+}
+
+.profile .menu-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.55);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile .menu-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+}
+
+.profile .menu-item:active {
+  transform: translateY(0);
+}
+
+.profile .menu-item ion-icon:first-child {
+  font-size: 24px;
+  color: var(--text);
+}
+
+.profile .menu-item span {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.profile .menu-item ion-icon:last-child {
+  font-size: 20px;
+  color: var(--muted);
+}
+
+.profile .bottom-safe {
+  height: 110px;
+}

@@ -15,6 +15,14 @@ import {
   heartOutline,
   notificationsOutline,
   personOutline,
+  checkmark,
+  addOutline,
+  removeOutline,
+  trashOutline,
+  chevronForwardOutline,
+  settingsOutline,
+  helpCircleOutline,
+  informationCircleOutline,
 } from 'ionicons/icons';
 
 import { routes } from './app/app.routes';
@@ -32,6 +40,14 @@ addIcons({
   'heart-outline': heartOutline,
   'notifications-outline': notificationsOutline,
   'person-outline': personOutline,
+  checkmark,
+  'add-outline': addOutline,
+  'remove-outline': removeOutline,
+  'trash-outline': trashOutline,
+  'chevron-forward-outline': chevronForwardOutline,
+  'settings-outline': settingsOutline,
+  'help-circle-outline': helpCircleOutline,
+  'information-circle-outline': informationCircleOutline,
 });
 
 bootstrapApplication(AppComponent, {

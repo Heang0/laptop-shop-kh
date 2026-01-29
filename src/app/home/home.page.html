@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true" class="gp">
   <!-- Top header -->
   <div class="topbar">
-    <div class="avatar" aria-hidden="true"></div>
+    <img class="avatar" [src]="profilePictureUrl" alt="Profile picture" />
 
     <div class="title-wrap">
       <div class="title">{{ title }}</div>
@@ -51,8 +51,8 @@
 
     <div class="hscroll">
       <div class="p-card" *ngFor="let p of popularProducts">
-        <button class="wish" (click)="toggleWish(p)" aria-label="Add to favorites">
-          <ion-icon name="heart"></ion-icon>
+        <button class="wish" [class.active]="isFavorite(p.id)" (click)="toggleWish(p)" aria-label="Add to favorites">
+          <ion-icon [name]="isFavorite(p.id) ? 'heart' : 'heart-outline'"></ion-icon>
         </button>
 
         <div class="p-img">
@@ -64,8 +64,8 @@
 
         <div class="p-bottom">
           <div class="p-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
-          <button class="add" aria-label="Add to cart">
-            <ion-icon name="bag-outline"></ion-icon>
+          <button class="add" [class.added]="isInCart(p.id)" (click)="addToCart(p)" aria-label="Add to cart">
+            <ion-icon [name]="isInCart(p.id) ? 'checkmark' : 'bag-outline'"></ion-icon>
           </button>
         </div>
 
@@ -85,6 +85,10 @@
 
     <div class="best">
       <div class="best-card" *ngFor="let p of bestSelling">
+        <button class="wish best-wish" [class.active]="isFavorite(p.id)" (click)="toggleWish(p)" aria-label="Add to favorites">
+          <ion-icon [name]="isFavorite(p.id) ? 'heart' : 'heart-outline'"></ion-icon>
+        </button>
+
         <img class="best-img" [src]="p.img" [alt]="p.name" loading="lazy" />
 
         <div class="best-mid">
@@ -103,7 +107,9 @@
 
         <div class="best-right">
           <div class="best-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
-          <div class="chip small">Hot</div>
+          <button class="add best-add" [class.added]="isInCart(p.id)" (click)="addToCart(p)" aria-label="Add to cart">
+            <ion-icon [name]="isInCart(p.id) ? 'checkmark' : 'bag-outline'"></ion-icon>
+          </button>
         </div>
       </div>
     </div>
@@ -119,8 +125,8 @@
     <div class="grid">
       <div class="g-card" *ngFor="let p of allProducts">
         <div class="g-top">
-          <button class="wish sm" (click)="toggleWish(p)" aria-label="Favorite">
-            <ion-icon name="heart"></ion-icon>
+          <button class="wish sm" [class.active]="isFavorite(p.id)" (click)="toggleWish(p)" aria-label="Favorite">
+            <ion-icon [name]="isFavorite(p.id) ? 'heart' : 'heart-outline'"></ion-icon>
           </button>
           <div class="badge sm" *ngIf="p.badge">{{ p.badge }}</div>
         </div>
@@ -134,10 +140,9 @@
 
         <div class="g-bottom">
           <div class="g-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
-          <div class="chip rating small">
-            <span class="dot-mini"></span>
-            {{ p.rating | number:'1.1-1' }}
-          </div>
+          <button class="add g-add" [class.added]="isInCart(p.id)" (click)="addToCart(p)" aria-label="Add to cart">
+            <ion-icon [name]="isInCart(p.id) ? 'checkmark' : 'bag-outline'"></ion-icon>
+          </button>
         </div>
       </div>
     </div>

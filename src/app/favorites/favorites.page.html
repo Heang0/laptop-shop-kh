@@ -1,7 +1,43 @@
-<ion-content fullscreen="true" class="stub">
-  <div class="card">
-    <ion-icon name="heart-outline"></ion-icon>
-    <h2>Favorites</h2>
-    <p>This is a placeholder screen for your real app flow.</p>
+<ion-content fullscreen="true" class="fav">
+  <div class="topbar">
+    <h2 class="title">My Favorites</h2>
   </div>
+
+  <div class="content" *ngIf="favoriteProducts.length > 0; else emptyState">
+    <div class="grid">
+      <div class="g-card" *ngFor="let p of favoriteProducts">
+        <div class="g-top">
+          <button class="wish sm active" (click)="toggleWish(p)" aria-label="Remove from favorites">
+            <ion-icon name="heart"></ion-icon>
+          </button>
+          <div class="badge sm" *ngIf="p.badge">{{ p.badge }}</div>
+        </div>
+
+        <div class="g-img">
+          <img [src]="p.img" [alt]="p.name" loading="lazy" />
+        </div>
+
+        <div class="g-name">{{ p.name }}</div>
+        <div class="g-brand">{{ p.brand }}</div>
+
+        <div class="g-bottom">
+          <div class="g-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
+          <div class="chip rating small">
+            <span class="dot-mini"></span>
+            {{ p.rating | number:'1.1-1' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <ion-icon name="heart-outline"></ion-icon>
+      <h2>No Favorites Yet</h2>
+      <p>Start adding products to your favorites!</p>
+    </div>
+  </ng-template>
+
+  <div class="bottom-safe"></div>
 </ion-content>

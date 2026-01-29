@@ -18,7 +18,9 @@ ion-content.gp {
   width: 100%;
   position: relative;
   z-index: 1;
-  --overflow: auto;
+  /* Performance: enable hardware acceleration for smooth scrolling */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 ion-content.gp::part(scroll) {
