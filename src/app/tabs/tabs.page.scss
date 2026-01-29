@@ -5,6 +5,16 @@
   --fab-size: 66px;
   --blue: #2f7bff;
   --muted: rgba(15, 23, 42, 0.45);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+ion-router-outlet {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
 }
 
 /* Floating modern tab bar with notch */
@@ -14,6 +24,8 @@
   right: var(--tabbar-margin);
   bottom: calc(var(--tabbar-margin) + env(safe-area-inset-bottom));
   height: var(--bar-height);
+  z-index: 10;
+  pointer-events: none;
 
   --background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(18px);
@@ -42,6 +54,11 @@ ion-tab-button{
   --color-selected: var(--blue);
   --padding-top: 10px;
   --padding-bottom: 12px;
+  pointer-events: auto;
+}
+
+.floating-tabbar ion-tab-button {
+  pointer-events: auto;
 }
 
 ion-tab-button::part(native){
@@ -75,6 +92,7 @@ ion-tab-button.tab-selected::part(native)::after{
 .center-fab{
   bottom: calc(var(--tabbar-margin) + env(safe-area-inset-bottom) + 10px);
   z-index: 50;
+  pointer-events: auto;
 }
 
 .center-fab ion-fab-button{

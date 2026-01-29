@@ -14,8 +14,8 @@
 
   <!-- HERO slider (3 slides) -->
   <div class="hero">
-    <div class="hero-track" (scroll)="onHeroScroll($event)">
-      <div class="hero-slide" *ngFor="let s of heroSlides" [style.backgroundImage]="'url(' + s.img + ')'">
+    <div class="hero-track" #heroTrack (scroll)="onHeroScroll($event)">
+      <div class="hero-slide" *ngFor="let s of heroSlides; let i = index" [style.backgroundImage]="'url(' + s.img + ')'" [attr.data-index]="i">
         <div class="hero-overlay"></div>
         <div class="hero-text">
           <div class="hero-sub">{{ s.subtitle }}</div>

@@ -1,6 +1,7 @@
 :host {
   display: block;
-  min-height: 100vh;
+  height: 100%;
+  width: 100%;
 
   --bg: #f4f7ff;
   --card: rgba(255, 255, 255, 0.88);
@@ -12,8 +13,12 @@
 
 ion-content.gp {
   --background: var(--bg);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
   height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  --overflow: auto;
 }
 
 ion-content.gp::part(scroll) {

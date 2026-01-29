@@ -9,6 +9,11 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+/* Professional Font - Inter */
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+}
+
 /* Core CSS required for Ionic components to work properly */
 @use './app/home/home.page.global.scss' as *;
 

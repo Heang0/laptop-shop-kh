@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { NgFor, NgIf, CurrencyPipe, DecimalPipe } from '@angular/common';
 import {
   IonContent,
@@ -38,8 +38,11 @@ interface HeroSlide {
   standalone: true,
   imports: [IonContent, IonIcon, NgFor, NgIf, CurrencyPipe, DecimalPipe],
 })
-export class HomePage {
+export class HomePage implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('heroTrack', { read: ElementRef }) heroTrack!: ElementRef<HTMLElement>;
+
   title = 'GadgetPro';
+  private autoSlideInterval?: any;
 
   categories: Category[] = [
     { key: 'Laptop', label: 'Laptop', icon: 'laptop-outline' },
@@ -131,10 +134,68 @@ export class HomePage {
     // UI-only stub
   }
 
+  ngOnInit() {
+    // Component initialization
+  }
+
+  ngAfterViewInit() {
+    // Start auto-slide after view is initialized
+    setTimeout(() => {
+      this.startAutoSlide();
+    }, 100);
+  }
+
+  ngOnDestroy() {
+    this.stopAutoSlide();
+  }
+
+  startAutoSlide() {
+    this.stopAutoSlide(); // Clear any existing interval
+    this.autoSlideInterval = setInterval(() => {
+      this.nextSlide();
+    }, 3000); // 3 seconds
+  }
+
+  stopAutoSlide() {
+    if (this.autoSlideInterval) {
+      clearInterval(this.autoSlideInterval);
+      this.autoSlideInterval = undefined;
+    }
+  }
+
+  nextSlide() {
+    if (!this.heroTrack?.nativeElement) return;
+    
+    const track = this.heroTrack.nativeElement;
+    const slideWidth = track.clientWidth;
+    const gap = 14; // CSS gap value
+    const nextIndex = (this.heroIndex + 1) % this.heroSlides.length;
+    
+    // Calculate scroll position: each slide is 100% width, gap is between slides
+    const scrollPosition = nextIndex * (slideWidth + gap);
+    
+    this.heroIndex = nextIndex;
+    track.scrollTo({
+      left: scrollPosition,
+      behavior: 'smooth'
+    });
+  }
+
   onHeroScroll(ev: Event) {
     const el = ev.target as HTMLElement;
-    const w = el.clientWidth || 1;
-    const idx = Math.round(el.scrollLeft / w);
+    const slideWidth = el.clientWidth || 1;
+    const gap = 14;
+    const scrollLeft = el.scrollLeft;
+    
+    // Calculate which slide is currently visible
+    // Account for gap between slides
+    const idx = Math.round(scrollLeft / (slideWidth + gap));
     this.heroIndex = Math.max(0, Math.min(this.heroSlides.length - 1, idx));
+    
+    // Restart auto-slide after user interaction (reset timer)
+    this.stopAutoSlide();
+    setTimeout(() => {
+      this.startAutoSlide();
+    }, 3000); // Wait 3 seconds before resuming auto-slide
   }
 }

@@ -14,6 +14,7 @@
   background: rgba(244, 247, 255, 0.72);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+  pointer-events: auto;
 }
 
 .gp .avatar {
@@ -62,6 +63,7 @@
   gap: 14px;
   padding-bottom: 10px;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 .gp .hero-track::-webkit-scrollbar { display: none; }
 
