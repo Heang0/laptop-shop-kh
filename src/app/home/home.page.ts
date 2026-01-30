@@ -79,11 +79,11 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get bestSelling(): Product[] {
-    // top 2 cards like sample
+    // top items per category
     const filtered = this.products
       .filter(p => p.category === this.activeCategory)
       .sort((a, b) => b.rating - a.rating);
-    return (filtered.length ? filtered : this.products).slice(0, 2);
+    return (filtered.length ? filtered : this.products).slice(0, 4);
   }
 
   get allProducts(): Product[] {

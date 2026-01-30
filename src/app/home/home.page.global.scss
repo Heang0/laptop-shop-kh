@@ -237,12 +237,13 @@
 
 .gp .p-img {
   width: 100%;
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
+  position: relative;
+  padding-top: 100%;
   margin-bottom: 10px;
 }
 .gp .p-img img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -343,13 +344,22 @@
 /* Best selling cards */
 .gp .best {
   display: grid;
-  gap: 10px;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  grid-template-rows: repeat(2, auto);
+  grid-template-columns: 100%;
+  gap: 10px 12px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
 }
+.gp .best::-webkit-scrollbar { display: none; }
 
 .gp .best-card {
   position: relative;
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  grid-template-columns: 80px minmax(0, 1fr) 100px;
   gap: 12px;
   align-items: center;
   padding: 12px;
@@ -359,6 +369,8 @@
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  width: 100%;
+  scroll-snap-align: start;
 }
 
 .gp .best-wish {
@@ -366,6 +378,10 @@
   top: 10px;
   right: 10px;
   z-index: 2;
+}
+
+.gp .best-mid {
+  min-width: 0;
 }
 
 .gp .best-img {
@@ -381,6 +397,9 @@
   color: var(--text);
   font-size: 14px;
   line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gp .best-brand {
@@ -402,12 +421,16 @@
   gap: 8px;
   justify-items: end;
   align-content: start;
+  min-width: 100px;
+  padding-right: 2px;
 }
 
 .gp .best-price {
   font-weight: 900;
   color: var(--text);
   font-size: 16px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .gp .best-add {
@@ -483,11 +506,12 @@
 .gp .g-img {
   margin-top: 8px;
   width: 100%;
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
+  position: relative;
+  padding-top: 100%;
 }
 .gp .g-img img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -531,6 +555,3 @@
 .gp .bottom-safe {
   height: 110px; /* space for floating tab bar */
 }
-
-
-
