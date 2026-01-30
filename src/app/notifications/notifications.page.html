@@ -4,10 +4,37 @@
   </div>
 
   <div class="content">
-    <div class="empty-state">
-      <ion-icon name="notifications-outline"></ion-icon>
-      <h2>No Notifications</h2>
-      <p>You're all caught up! Check back later for updates.</p>
+    <div class="subbar">
+      <div class="filters">
+        <button class="pill" type="button" [class.active]="view === 'unread'" (click)="setView('unread')">Unread</button>
+        <button class="pill" type="button" [class.active]="view === 'all'" (click)="setView('all')">All</button>
+      </div>
+      <button class="mark" type="button" (click)="markAllRead()">Mark all read</button>
+    </div>
+
+    <div class="list">
+      <div class="n-card" *ngFor="let n of filteredNotifications; let i = index" [class.unread]="n.unread">
+        <div class="n-media" *ngIf="getProductImg(n); else iconBlock">
+          <img [src]="getProductImg(n)!" alt="Product" appFallbackImg="assets/img/galaxy-book.svg" />
+        </div>
+        <ng-template #iconBlock>
+          <div class="n-icon-inline" [class.order]="n.type === 'order'" [class.promo]="n.type === 'promo'" [class.system]="n.type === 'system'">
+            <ion-icon [name]="n.icon"></ion-icon>
+          </div>
+        </ng-template>
+
+        <div class="n-body">
+          <div class="n-title">{{ n.title }}</div>
+          <div class="n-msg">{{ n.message }}</div>
+        </div>
+
+        <div class="n-meta">
+          <div class="n-time">{{ n.time }}</div>
+          <button class="n-delete" type="button" (click)="removeNotification(i)" aria-label="Delete notification">
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 

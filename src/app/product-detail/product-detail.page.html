@@ -1,0 +1,75 @@
+<ion-content fullscreen="true" class="pd">
+  <div class="topbar">
+    <button class="icon-btn" type="button" routerLink="/tabs/home" aria-label="Back">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </button>
+    <div class="title">Product Detail</div>
+    <div class="spacer"></div>
+  </div>
+
+  <ng-container *ngIf="product; else notFound">
+    <div class="hero">
+      <img [src]="product.img" [alt]="product.name" loading="lazy" appFallbackImg="assets/img/galaxy-book.svg" />
+      <div class="badge" *ngIf="product.badge">{{ product.badge }}</div>
+    </div>
+
+    <div class="info">
+      <div class="name">{{ product.name }}</div>
+      <div class="brand">{{ product.brand }}</div>
+
+      <div class="meta">
+        <div class="price">{{ product.price | currency:'USD':'symbol':'1.0-0' }}</div>
+        <div class="chip rating">
+          <span class="dot-mini"></span>
+          {{ product.rating | number:'1.1-1' }}
+        </div>
+        <div class="chip" *ngIf="product.tag">{{ product.tag }}</div>
+        <div class="chip off" *ngIf="product.badge">{{ product.badge }}</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Details</div>
+        <div class="detail-row">
+          <span class="label">Category</span>
+          <span class="value">{{ product.category }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Brand</span>
+          <span class="value">{{ product.brand }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Rating</span>
+          <span class="value">{{ product.rating | number:'1.1-1' }}</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn secondary" type="button" (click)="addToCart()">
+          <ion-icon name="bag-outline"></ion-icon>
+          {{ isAdded() ? 'Added' : 'Add to cart' }}
+        </button>
+        <button class="btn primary" type="button" (click)="buyNow()">
+          Buy now
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+  <ion-toast
+    [isOpen]="toastOpen"
+    message="Added to cart"
+    duration="1200"
+    position="bottom"
+    (didDismiss)="toastOpen = false">
+  </ion-toast>
+
+  <ng-template #notFound>
+    <div class="empty-state">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <h2>Product not found</h2>
+      <p>Try going back and selecting another item.</p>
+    </div>
+  </ng-template>
+
+  <div class="bottom-safe"></div>
+</ion-content>

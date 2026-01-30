@@ -13,7 +13,7 @@
 
 ion-content.fav {
   --background: var(--bg);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
   height: 100%;
   width: 100%;
 }
@@ -28,7 +28,7 @@ ion-content.fav {
 }
 
 .fav .title {
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.3px;
   font-size: 22px;
   color: var(--text);
@@ -55,6 +55,7 @@ ion-content.fav {
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  cursor: pointer;
 }
 
 .fav .g-top {
@@ -91,7 +92,7 @@ ion-content.fav {
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.82);
   color: #fff;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 10px;
 }
 
@@ -114,7 +115,7 @@ ion-content.fav {
 
 .fav .g-name {
   margin-top: 10px;
-  font-weight: 900;
+  font-weight: 700;
   color: var(--text);
   font-size: 13px;
   line-height: 1.1;
@@ -135,7 +136,7 @@ ion-content.fav {
 }
 
 .fav .g-price {
-  font-weight: 900;
+  font-weight: 700;
   color: var(--text);
   font-size: 14px;
 }
@@ -146,7 +147,7 @@ ion-content.fav {
   gap: 6px;
   padding: 6px 9px;
   border-radius: 999px;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 11px;
   color: #0f172a;
   background: rgba(47, 123, 255, 0.15);
@@ -179,7 +180,7 @@ ion-content.fav {
 }
 
 .fav .empty-state h2 {
-  font-weight: 800;
+  font-weight: 700;
   font-size: 22px;
   color: var(--text);
   margin: 0 0 8px;

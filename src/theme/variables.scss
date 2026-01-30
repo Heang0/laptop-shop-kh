@@ -1,4 +1,7 @@
 // For information on how to create your own theme, please refer to:
 // https://ionicframework.com/docs/theming/
 
-:root{ --ion-color-primary: #2f66ff; }
+:root {
+  --ion-color-primary: #2f66ff;
+  --ion-font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+}

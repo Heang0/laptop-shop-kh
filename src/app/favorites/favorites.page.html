@@ -5,16 +5,16 @@
 
   <div class="content" *ngIf="favoriteProducts.length > 0; else emptyState">
     <div class="grid">
-      <div class="g-card" *ngFor="let p of favoriteProducts">
+      <div class="g-card" *ngFor="let p of favoriteProducts" [routerLink]="['/product', p.id]">
         <div class="g-top">
-          <button class="wish sm active" (click)="toggleWish(p)" aria-label="Remove from favorites">
+          <button class="wish sm active" (click)="toggleWish(p); $event.stopPropagation()" aria-label="Remove from favorites">
             <ion-icon name="heart"></ion-icon>
           </button>
           <div class="badge sm" *ngIf="p.badge">{{ p.badge }}</div>
         </div>
 
         <div class="g-img">
-          <img [src]="p.img" [alt]="p.name" loading="lazy" />
+          <img [src]="p.img" [alt]="p.name" loading="lazy" appFallbackImg="assets/img/galaxy-book.svg" />
         </div>
 
         <div class="g-name">{{ p.name }}</div>

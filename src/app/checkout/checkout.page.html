@@ -1,0 +1,83 @@
+<ion-content fullscreen="true" class="co">
+  <div class="topbar">
+    <button class="icon-btn" type="button" routerLink="/tabs/cart" aria-label="Back">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </button>
+    <div class="title">Checkout</div>
+    <div class="spacer"></div>
+  </div>
+
+  <div class="content" *ngIf="!paid; else success">
+    <div class="summary">
+      <div class="summary-left">
+        <div class="summary-title">Total</div>
+        <div class="summary-sub">Secure payment</div>
+      </div>
+      <div class="summary-amount">$4,997</div>
+    </div>
+
+    <div class="card payment">
+      <div class="section-title">Card payment</div>
+      <div class="card-icons" aria-label="Supported cards">
+        <span class="card-pill visa">VISA</span>
+        <span class="card-pill mc">Mastercard</span>
+        <span class="card-pill amex">AMEX</span>
+        <span class="card-pill discover">Discover</span>
+      </div>
+
+      <label class="field">
+        <span>Name on card</span>
+        <input type="text" placeholder="Alex Johnson" />
+      </label>
+
+      <label class="field">
+        <span>Card number</span>
+        <input type="text" placeholder="4242 4242 4242 4242" />
+      </label>
+
+      <div class="row">
+        <label class="field">
+          <span>Expiry</span>
+          <input type="text" placeholder="12/28" />
+        </label>
+        <label class="field">
+          <span>CVV</span>
+          <input type="text" placeholder="123" />
+        </label>
+      </div>
+    </div>
+
+    <div class="card qr">
+      <div class="section-title">QR Pay</div>
+      <div class="qr-body">
+        <img src="assets/img/qrcode.jpg" alt="QR code" />
+        <div class="qr-text">
+          <div class="qr-title">Scan to pay</div>
+          <div class="qr-sub">Use your banking app to complete the payment.</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="pay-btn" type="button" (click)="payNow()">
+      Pay now
+    </button>
+    <div class="fineprint">By paying, you agree to the terms and conditions.</div>
+  </div>
+
+  <ng-template #success>
+    <div class="success">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      <h2>Payment successful</h2>
+      <p>Thanks! Your order is confirmed.</p>
+      <button class="pay-btn" type="button" routerLink="/tabs/home">Back to home</button>
+    </div>
+  </ng-template>
+
+  <ion-toast
+    [isOpen]="toastOpen"
+    message="Payment successful"
+    duration="1400"
+    position="bottom"
+    (didDismiss)="toastOpen = false">
+  </ion-toast>
+</ion-content>

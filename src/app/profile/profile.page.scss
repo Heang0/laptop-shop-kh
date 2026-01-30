@@ -11,7 +11,7 @@
 
 ion-content.profile {
   --background: var(--bg);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
   height: 100%;
   width: 100%;
 }
@@ -26,7 +26,7 @@ ion-content.profile {
 }
 
 .profile .title {
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.3px;
   font-size: 22px;
   color: var(--text);
@@ -52,7 +52,7 @@ ion-content.profile {
 }
 
 .profile .profile-name {
-  font-weight: 900;
+  font-weight: 700;
   font-size: 24px;
   color: var(--text);
   margin: 0 0 6px;
@@ -108,6 +108,25 @@ ion-content.profile {
 .profile .menu-item ion-icon:last-child {
   font-size: 20px;
   color: var(--muted);
+}
+
+.profile .menu-item.logout {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.profile .menu-item.logout span {
+  color: #ef4444;
+}
+
+.profile .menu-item.logout .logout-icon {
+  font-size: 24px;
+  color: #ef4444;
+}
+
+.profile .menu-item.logout .logout-chevron {
+  font-size: 20px;
+  color: rgba(239, 68, 68, 0.7);
 }
 
 .profile .bottom-safe {

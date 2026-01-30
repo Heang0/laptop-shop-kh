@@ -11,7 +11,7 @@
 
 ion-content.notif {
   --background: var(--bg);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
   height: 100%;
   width: 100%;
 }
@@ -26,7 +26,7 @@ ion-content.notif {
 }
 
 .notif .title {
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.3px;
   font-size: 22px;
   color: var(--text);
@@ -37,33 +37,173 @@ ion-content.notif {
   padding: 18px;
 }
 
-.notif .empty-state {
+.notif .subbar {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 60px 24px;
-  text-align: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.notif .empty-state ion-icon {
-  font-size: 64px;
-  color: rgba(15, 23, 42, 0.2);
-  margin-bottom: 16px;
+.notif .filters {
+  display: flex;
+  gap: 8px;
 }
 
-.notif .empty-state h2 {
-  font-weight: 800;
-  font-size: 22px;
+.notif .pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #fff;
   color: var(--text);
-  margin: 0 0 8px;
-  letter-spacing: -0.3px;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
 }
 
-.notif .empty-state p {
+.notif .pill.active {
+  background: rgba(47, 123, 255, 0.12);
+  border-color: rgba(47, 123, 255, 0.25);
+  color: #1e5cff;
+}
+
+.notif .mark {
+  border: none;
+  background: transparent;
+  color: #1e5cff;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.notif .list {
+  display: grid;
+  gap: 12px;
+}
+
+.notif .n-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+.notif .n-card.unread {
+  position: relative;
+}
+
+.notif .n-card.unread::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #2f7bff;
+}
+
+.notif .n-media {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: rgba(47, 123, 255, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.notif .n-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.notif .n-icon-inline {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(47, 123, 255, 0.12);
+  color: #1e5cff;
+}
+
+.notif .n-icon-inline.order {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+.notif .n-icon-inline.promo {
+  background: rgba(249, 115, 22, 0.12);
+  color: #f97316;
+}
+
+.notif .n-icon-inline.system {
+  background: rgba(99, 102, 241, 0.12);
+  color: #6366f1;
+}
+
+.notif .n-icon-inline ion-icon {
+  font-size: 18px;
+}
+
+.notif .n-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.notif .n-title {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notif .n-msg {
+  margin-top: 2px;
   color: var(--muted);
-  font-size: 14px;
-  margin: 0;
+  font-weight: 700;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notif .n-delete {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  border: none;
+  background: rgba(239, 68, 68, 0.08);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.notif .n-delete ion-icon {
+  font-size: 16px;
+  color: #ef4444;
+}
+
+.notif .n-meta {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.notif .n-time {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .notif .bottom-safe {

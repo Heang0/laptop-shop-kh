@@ -1,11 +1,15 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { NgFor, NgIf, CurrencyPipe, DecimalPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
   IonContent,
   IonIcon,
+  IonSearchbar,
 } from '@ionic/angular/standalone';
 import { ProductService, Product, CategoryKey } from '../shared/product.service';
 import { CartService } from '../shared/cart.service';
+import { FallbackImgDirective } from '../shared/fallback-img.directive';
 
 interface Category {
   key: CategoryKey;
@@ -24,10 +28,13 @@ interface HeroSlide {
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, NgFor, NgIf, CurrencyPipe, DecimalPipe],
+  imports: [IonContent, IonIcon, IonSearchbar, NgFor, NgIf, CurrencyPipe, DecimalPipe, RouterLink, FormsModule, FallbackImgDirective],
 })
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('heroTrack', { read: ElementRef }) heroTrack!: ElementRef<HTMLElement>;
+  @ViewChild('popularTrack', { read: ElementRef }) popularTrack!: ElementRef<HTMLElement>;
+  @ViewChild('bestTrack', { read: ElementRef }) bestTrack!: ElementRef<HTMLElement>;
+  @ViewChild('searchbar') searchbar!: IonSearchbar;
 
   title = 'GadgetPro';
   profilePictureUrl = 'https://chhaiheang.onrender.com/img/pf-pic.png';
@@ -50,7 +57,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   heroSlides: HeroSlide[] = [
     {
-      title: 'Collection of 2023',
+      title: 'Collection of 2026',
       subtitle: 'Fresh picks • Up to 30% off',
       img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1400&q=70',
     },
@@ -67,28 +74,48 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   heroIndex = 0;
+  popularIndex = 0;
+  bestIndex = 0;
+  searchQuery = '';
+  showSearch = false;
 
   get products(): Product[] {
     return this.productService.getAllProducts();
   }
 
+  get filteredProducts(): Product[] {
+    const q = this.searchQuery.trim().toLowerCase();
+    if (!q) return this.products;
+    return this.products.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.brand.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q)
+    );
+  }
+
+  get hasSearchResults(): boolean {
+    const q = this.searchQuery.trim();
+    if (!q) return true;
+    return this.filteredProducts.length > 0;
+  }
+
   get popularProducts(): Product[] {
     // show 12 items like the sample row
-    const filtered = this.products.filter(p => p.category === this.activeCategory);
-    return (filtered.length ? filtered : this.products).slice(0, 12);
+    const filtered = this.filteredProducts.filter(p => p.category === this.activeCategory);
+    return (filtered.length ? filtered : this.filteredProducts).slice(0, 12);
   }
 
   get bestSelling(): Product[] {
     // top items per category
-    const filtered = this.products
+    const filtered = this.filteredProducts
       .filter(p => p.category === this.activeCategory)
       .sort((a, b) => b.rating - a.rating);
-    return (filtered.length ? filtered : this.products).slice(0, 4);
+    return (filtered.length ? filtered : this.filteredProducts).slice(0, 4);
   }
 
   get allProducts(): Product[] {
-    const filtered = this.products.filter(p => p.category === this.activeCategory);
-    return filtered.length ? filtered : this.products;
+    const filtered = this.filteredProducts.filter(p => p.category === this.activeCategory);
+    return filtered.length ? filtered : this.filteredProducts;
   }
 
   selectCategory(k: CategoryKey) {
@@ -116,6 +143,15 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   isInCart(productId: string): boolean {
     return this.cartService.isInCart(productId);
+  }
+
+  toggleSearch() {
+    this.showSearch = !this.showSearch;
+    if (!this.showSearch) {
+      this.searchQuery = '';
+      return;
+    }
+    setTimeout(() => this.searchbar?.setFocus(), 0);
   }
 
   ngOnInit() {
@@ -189,5 +225,45 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.scrollTimeout = setTimeout(() => {
       this.startAutoSlide();
     }, 3000); // Wait 3 seconds before resuming auto-slide
+  }
+
+  scrollPopularTo(index: number) {
+    if (!this.popularTrack?.nativeElement) return;
+    const track = this.popularTrack.nativeElement;
+    const gap = 12;
+    const pageWidth = track.clientWidth;
+    track.scrollTo({
+      left: index * (pageWidth + gap),
+      behavior: 'smooth'
+    });
+    this.popularIndex = index;
+  }
+
+  onPopularScroll(ev: Event) {
+    const el = ev.target as HTMLElement;
+    const gap = 12;
+    const pageWidth = el.clientWidth || 1;
+    const idx = Math.round(el.scrollLeft / (pageWidth + gap));
+    this.popularIndex = Math.max(0, Math.min(2, idx));
+  }
+
+  scrollBestTo(index: number) {
+    if (!this.bestTrack?.nativeElement) return;
+    const track = this.bestTrack.nativeElement;
+    const gap = 12;
+    const pageWidth = track.clientWidth;
+    track.scrollTo({
+      left: index * (pageWidth + gap),
+      behavior: 'smooth'
+    });
+    this.bestIndex = index;
+  }
+
+  onBestScroll(ev: Event) {
+    const el = ev.target as HTMLElement;
+    const gap = 12;
+    const pageWidth = el.clientWidth || 1;
+    const idx = Math.round(el.scrollLeft / (pageWidth + gap));
+    this.bestIndex = Math.max(0, Math.min(1, idx));
   }
 }

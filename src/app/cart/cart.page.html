@@ -8,9 +8,9 @@
 
   <div class="content" *ngIf="cartItems.length > 0; else emptyState">
     <div class="cart-list">
-      <div class="cart-item" *ngFor="let item of cartItems">
+      <div class="cart-item" *ngFor="let item of cartItems" [routerLink]="['/product', item.product.id]">
         <div class="item-img">
-          <img [src]="item.product.img" [alt]="item.product.name" loading="lazy" />
+          <img [src]="item.product.img" [alt]="item.product.name" loading="lazy" appFallbackImg="assets/img/galaxy-book.svg" />
         </div>
 
         <div class="item-info">
@@ -21,15 +21,15 @@
 
         <div class="item-actions">
           <div class="quantity-control">
-            <button class="qty-btn" (click)="updateQuantity(item, -1)" aria-label="Decrease quantity">
+            <button class="qty-btn" (click)="updateQuantity(item, -1); $event.stopPropagation()" aria-label="Decrease quantity">
               <ion-icon name="remove-outline"></ion-icon>
             </button>
             <span class="qty-value">{{ item.quantity }}</span>
-            <button class="qty-btn" (click)="updateQuantity(item, 1)" aria-label="Increase quantity">
+            <button class="qty-btn" (click)="updateQuantity(item, 1); $event.stopPropagation()" aria-label="Increase quantity">
               <ion-icon name="add-outline"></ion-icon>
             </button>
           </div>
-          <button class="remove-btn" (click)="removeItem(item.product.id)" aria-label="Remove item">
+          <button class="remove-btn" (click)="removeItem(item.product.id); $event.stopPropagation()" aria-label="Remove item">
             <ion-icon name="trash-outline"></ion-icon>
           </button>
         </div>
@@ -41,7 +41,7 @@
         <div class="total-label">Total</div>
         <div class="total-amount">{{ getTotal() | currency:'USD':'symbol':'1.0-0' }}</div>
       </div>
-      <button class="checkout-btn">Checkout</button>
+      <button class="checkout-btn" routerLink="/checkout">Checkout</button>
     </div>
   </div>
 

@@ -1,14 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgFor, NgIf, CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { CartService, CartItem } from '../shared/cart.service';
+import { FallbackImgDirective } from '../shared/fallback-img.directive';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
   styleUrls: ['./cart.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, NgFor, NgIf, CurrencyPipe],
+  imports: [IonContent, IonIcon, NgFor, NgIf, CurrencyPipe, RouterLink, FallbackImgDirective],
 })
 export class CartPage implements OnInit, OnDestroy {
   cartItems: CartItem[] = [];

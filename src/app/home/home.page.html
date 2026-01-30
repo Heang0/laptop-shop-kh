@@ -7,9 +7,25 @@
       <div class="title">{{ title }}</div>
     </div>
 
-    <button class="icon-btn" aria-label="Search">
-      <ion-icon name="search-outline"></ion-icon>
+    <button class="icon-btn" aria-label="Search" (click)="toggleSearch()">
+      <ion-icon [name]="showSearch ? 'close-outline' : 'search-outline'"></ion-icon>
     </button>
+  </div>
+
+  <div class="search" *ngIf="showSearch">
+    <ion-searchbar
+      #searchbar
+      placeholder="Search products"
+      [(ngModel)]="searchQuery"
+      (ionInput)="popularIndex = 0; bestIndex = 0"
+      animated="true">
+    </ion-searchbar>
+  </div>
+
+  <div class="search-empty" *ngIf="showSearch && !hasSearchResults">
+    <ion-icon name="search-outline"></ion-icon>
+    <h3>No products found</h3>
+    <p>Try a different keyword.</p>
   </div>
 
   <!-- HERO slider (3 slides) -->
@@ -41,22 +57,24 @@
   </div>
 
   <!-- Popular product -->
-  <div class="section">
+  <div class="section" *ngIf="hasSearchResults">
     <div class="section-head">
       <div class="section-title">Popular Product</div>
-      <div class="pager" aria-hidden="true">
-        <span class="p p-active"></span><span class="p"></span><span class="p"></span>
-      </div>
+    <div class="pager">
+      <button class="p" [class.p-active]="popularIndex === 0" (click)="scrollPopularTo(0)" aria-label="Popular page 1"></button>
+      <button class="p" [class.p-active]="popularIndex === 1" (click)="scrollPopularTo(1)" aria-label="Popular page 2"></button>
+      <button class="p" [class.p-active]="popularIndex === 2" (click)="scrollPopularTo(2)" aria-label="Popular page 3"></button>
     </div>
+  </div>
 
-    <div class="hscroll">
-      <div class="p-card" *ngFor="let p of popularProducts">
-        <button class="wish" [class.active]="isFavorite(p.id)" (click)="toggleWish(p)" aria-label="Add to favorites">
+    <div class="hscroll" #popularTrack (scroll)="onPopularScroll($event)">
+      <div class="p-card" *ngFor="let p of popularProducts" [routerLink]="['/product', p.id]">
+        <button class="wish" [class.active]="isFavorite(p.id)" (click)="toggleWish(p); $event.stopPropagation()" aria-label="Add to favorites">
           <ion-icon [name]="isFavorite(p.id) ? 'heart' : 'heart-outline'"></ion-icon>
         </button>
 
         <div class="p-img">
-          <img [src]="p.img" [alt]="p.name" loading="lazy" />
+          <img [src]="p.img" [alt]="p.name" loading="lazy" appFallbackImg="assets/img/galaxy-book.svg" />
         </div>
 
         <div class="p-name">{{ p.name }}</div>
@@ -64,7 +82,7 @@
 
         <div class="p-bottom">
           <div class="p-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
-          <button class="add" [class.added]="isInCart(p.id)" (click)="addToCart(p)" aria-label="Add to cart">
+          <button class="add" [class.added]="isInCart(p.id)" (click)="addToCart(p); $event.stopPropagation()" aria-label="Add to cart">
             <ion-icon [name]="isInCart(p.id) ? 'checkmark' : 'bag-outline'"></ion-icon>
           </button>
         </div>
@@ -75,21 +93,22 @@
   </div>
 
   <!-- Best selling -->
-  <div class="section">
+  <div class="section" *ngIf="hasSearchResults">
     <div class="section-head">
       <div class="section-title">Best Selling</div>
-      <div class="pager" aria-hidden="true">
-        <span class="p p-active"></span><span class="p"></span>
-      </div>
+    <div class="pager">
+      <button class="p" [class.p-active]="bestIndex === 0" (click)="scrollBestTo(0)" aria-label="Best selling page 1"></button>
+      <button class="p" [class.p-active]="bestIndex === 1" (click)="scrollBestTo(1)" aria-label="Best selling page 2"></button>
     </div>
+  </div>
 
-    <div class="best">
-      <div class="best-card" *ngFor="let p of bestSelling">
-        <button class="wish best-wish" [class.active]="isFavorite(p.id)" (click)="toggleWish(p)" aria-label="Add to favorites">
+    <div class="best" #bestTrack (scroll)="onBestScroll($event)">
+      <div class="best-card" *ngFor="let p of bestSelling" [routerLink]="['/product', p.id]">
+        <button class="wish best-wish" [class.active]="isFavorite(p.id)" (click)="toggleWish(p); $event.stopPropagation()" aria-label="Add to favorites">
           <ion-icon [name]="isFavorite(p.id) ? 'heart' : 'heart-outline'"></ion-icon>
         </button>
 
-        <img class="best-img" [src]="p.img" [alt]="p.name" loading="lazy" />
+        <img class="best-img" [src]="p.img" [alt]="p.name" loading="lazy" appFallbackImg="assets/img/galaxy-book.svg" />
 
         <div class="best-mid">
           <div class="best-name">{{ p.name }}</div>
@@ -107,7 +126,7 @@
 
         <div class="best-right">
           <div class="best-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
-          <button class="add best-add" [class.added]="isInCart(p.id)" (click)="addToCart(p)" aria-label="Add to cart">
+          <button class="add best-add" [class.added]="isInCart(p.id)" (click)="addToCart(p); $event.stopPropagation()" aria-label="Add to cart">
             <ion-icon [name]="isInCart(p.id) ? 'checkmark' : 'bag-outline'"></ion-icon>
           </button>
         </div>
@@ -116,23 +135,23 @@
   </div>
 
   <!-- All products grid (shows "many products") -->
-  <div class="section">
+  <div class="section" *ngIf="hasSearchResults">
     <div class="section-head">
       <div class="section-title">All Products</div>
       <div class="hint">{{ activeCategory }}</div>
     </div>
 
     <div class="grid">
-      <div class="g-card" *ngFor="let p of allProducts">
+      <div class="g-card" *ngFor="let p of allProducts" [routerLink]="['/product', p.id]">
         <div class="g-top">
-          <button class="wish sm" [class.active]="isFavorite(p.id)" (click)="toggleWish(p)" aria-label="Favorite">
+          <button class="wish sm" [class.active]="isFavorite(p.id)" (click)="toggleWish(p); $event.stopPropagation()" aria-label="Favorite">
             <ion-icon [name]="isFavorite(p.id) ? 'heart' : 'heart-outline'"></ion-icon>
           </button>
           <div class="badge sm" *ngIf="p.badge">{{ p.badge }}</div>
         </div>
 
         <div class="g-img">
-          <img [src]="p.img" [alt]="p.name" loading="lazy" />
+          <img [src]="p.img" [alt]="p.name" loading="lazy" appFallbackImg="assets/img/galaxy-book.svg" />
         </div>
 
         <div class="g-name">{{ p.name }}</div>
@@ -140,7 +159,7 @@
 
         <div class="g-bottom">
           <div class="g-price">{{ p.price | currency:'USD':'symbol':'1.0-0' }}</div>
-          <button class="add g-add" [class.added]="isInCart(p.id)" (click)="addToCart(p)" aria-label="Add to cart">
+          <button class="add g-add" [class.added]="isInCart(p.id)" (click)="addToCart(p); $event.stopPropagation()" aria-label="Add to cart">
             <ion-icon [name]="isInCart(p.id) ? 'checkmark' : 'bag-outline'"></ion-icon>
           </button>
         </div>

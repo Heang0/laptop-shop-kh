@@ -14,6 +14,6 @@
     <rect x="145" y="95" width="310" height="160" rx="14" fill="rgba(255,255,255,.18)"/>
     <path d="M110 290 h380 l-26 26 h-328 z" fill="rgba(255,255,255,.20)"/>
   </g>
-  <text x="30" y="55" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto" font-size="26" font-weight="700" fill="rgba(255,255,255,.92)">MacBook Air</text>
-  <text x="30" y="85" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto" font-size="14" font-weight="500" fill="rgba(255,255,255,.78)">Placeholder image (replace with real product photo)</text>
+  <text x="30" y="55" font-family="Poppins, system-ui, -apple-system, Segoe UI, Roboto" font-size="26" font-weight="700" fill="rgba(255,255,255,.92)">MacBook Air</text>
+  <text x="30" y="85" font-family="Poppins, system-ui, -apple-system, Segoe UI, Roboto" font-size="14" font-weight="500" fill="rgba(255,255,255,.78)">Placeholder image (replace with real product photo)</text>
 </svg>

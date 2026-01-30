@@ -12,9 +12,9 @@
 /* Core CSS required for Ionic components to work properly */
 @use './app/home/home.page.global.scss' as *;
 
-/* Professional Font - Inter */
+/* Professional Font - Poppins */
 * {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
 }
 
 @import "@ionic/angular/css/core.css";
