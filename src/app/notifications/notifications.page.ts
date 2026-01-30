@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { ProductService } from '../shared/product.service';
 import { FallbackImgDirective } from '../shared/fallback-img.directive';
@@ -19,7 +19,7 @@ interface DemoNotification {
   templateUrl: './notifications.page.html',
   styleUrls: ['./notifications.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, NgFor, FallbackImgDirective],
+  imports: [IonContent, IonIcon, NgFor, NgIf, FallbackImgDirective],
 })
 export class NotificationsPage {
   private productsMap = new Map<string, string>();
