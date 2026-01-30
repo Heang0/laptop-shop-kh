@@ -82,7 +82,8 @@ ion-content.notif {
 }
 
 .notif .n-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 64px;
   align-items: center;
   gap: 12px;
   padding: 14px;
@@ -155,7 +156,6 @@ ion-content.notif {
 
 .notif .n-body {
   min-width: 0;
-  flex: 1;
 }
 
 .notif .n-title {
@@ -197,6 +197,22 @@ ion-content.notif {
   display: grid;
   justify-items: end;
   gap: 6px;
+}
+
+@media (max-width: 360px) {
+  .notif .n-card {
+    grid-template-columns: 48px minmax(0, 1fr) 56px;
+    padding: 12px;
+  }
+
+  .notif .n-media {
+    width: 48px;
+    height: 48px;
+  }
+
+  .notif .n-title {
+    font-size: 14px;
+  }
 }
 
 .notif .n-time {
